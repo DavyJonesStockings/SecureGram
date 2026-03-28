@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — MyApp{% endblock %}
+{% block body_class %}page-dashboard{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="{{ url_for('index') }}" class="sidebar__logo">MyApp</a>
+
+        <nav class="sidebar__nav">
+            <a href="{{ url_for('dashboard') }}" class="sidebar__link sidebar__link--active">
+                <span class="sidebar__icon">▤</span> Dashboard
+            </a>
+            <a href="#" class="sidebar__link">
+                <span class="sidebar__icon">◈</span> Projects
+            </a>
+            <a href="#" class="sidebar__link">
+                <span class="sidebar__icon">⊞</span> Tasks
+            </a>
+            <a href="#" class="sidebar__link">
+                <span class="sidebar__icon">◎</span> Analytics
+            </a>
+            <a href="#" class="sidebar__link">
+                <span class="sidebar__icon">⚙</span> Settings
+            </a>
+        </nav>
+
+        <div class="sidebar__user">
+            <div class="avatar">{{ current_user.email[0].upper() if current_user else 'U' }}</div>
+            <div class="sidebar__user-info">
+                <span class="sidebar__user-name">{{ current_user.name if current_user else 'User' }}</span>
+                <span class="sidebar__user-email">{{ current_user.email if current_user else 'user@example.com' }}</span>
+            </div>
+            <a href="{{ url_for('logout') }}" class="sidebar__logout" title="Sign out">⏻</a>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+        <header class="main__header">
+            <div>
+                <p class="main__greeting">Good morning,</p>
+                <h1 class="main__title">{{ current_user.name if current_user else 'there' }} 👋</h1>
+            </div>
+            <button class="btn btn--primary btn--sm">+ New Project</button>
+        </header>
+
+        <!-- Stat cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-card__label">Active Projects</span>
+                <span class="stat-card__value">{{ stats.projects if stats else '—' }}</span>
+                <span class="stat-card__delta stat-card__delta--up">↑ 2 this month</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__label">Tasks Completed</span>
+                <span class="stat-card__value">{{ stats.tasks_done if stats else '—' }}</span>
+                <span class="stat-card__delta stat-card__delta--up">↑ 12 this week</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__label">Pending Review</span>
+                <span class="stat-card__value">{{ stats.pending if stats else '—' }}</span>
+                <span class="stat-card__delta stat-card__delta--neutral">→ No change</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__label">Team Members</span>
+                <span class="stat-card__value">{{ stats.members if stats else '—' }}</span>
+                <span class="stat-card__delta stat-card__delta--up">↑ 1 new</span>
+            </div>
+        </div>
+
+        <!-- Recent activity + tasks -->
+        <div class="content-grid">
+            <section class="panel">
+                <div class="panel__header">
+                    <h2 class="panel__title">Recent Activity</h2>
+                    <a href="#" class="panel__link">View all</a>
+                </div>
+                <ul class="activity-list">
+                    {% if activity %}
+                        {% for item in activity %}
+                        <li class="activity-item">
+                            <div class="activity-item__dot"></div>
+                            <div>
+                                <p class="activity-item__text">{{ item.text }}</p>
+                                <span class="activity-item__time">{{ item.time }}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="activity-item activity-item--empty">No recent activity yet.</li>
+                    {% endif %}
+                </ul>
+            </section>
+
+            <section class="panel">
+                <div class="panel__header">
+                    <h2 class="panel__title">My Tasks</h2>
+                    <a href="#" class="panel__link">Add task</a>
+                </div>
+                <ul class="task-list">
+                    {% if tasks %}
+                        {% for task in tasks %}
+                        <li class="task-item {% if task.done %}task-item--done{% endif %}">
+                            <input type="checkbox" class="task-item__check" {% if task.done %}checked{% endif %}>
+                            <span class="task-item__label">{{ task.title }}</span>
+                            <span class="task-item__tag task-item__tag--{{ task.priority }}">{{ task.priority }}</span>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="task-item task-item--empty">No tasks yet — enjoy the calm.</li>
+                    {% endif %}
+                </ul>
+            </section>
+        </div>
+    </main>
+</div>
+{% endblock %}

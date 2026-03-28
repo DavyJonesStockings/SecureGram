@@ -1,0 +1,214 @@
+/* =============================================
+   LOGIN.CSS — Login page styles
+   ============================================= */
+
+.page-login {
+    min-height: 100vh;
+}
+
+.login-layout {
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    min-height: 100vh;
+}
+
+/* Left panel */
+.login-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 48px;
+    border-right: 1px solid var(--c-border);
+    background: var(--c-surface);
+    position: relative;
+}
+
+.login-panel__back {
+    font-size: 0.82rem;
+    color: var(--c-text-3);
+    margin-bottom: auto;
+    display: inline-block;
+    transition: color var(--transition);
+}
+.login-panel__back:hover { color: var(--c-text-2); }
+
+.login-panel__inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 360px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 40px 0;
+}
+
+.login-panel__logo {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--c-text);
+    margin-bottom: 40px;
+    display: block;
+}
+
+.login-panel__title {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--c-text);
+    margin-bottom: 8px;
+}
+
+.login-panel__sub {
+    color: var(--c-text-3);
+    font-size: 0.9rem;
+    margin-bottom: 36px;
+}
+
+/* Form fields */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field__label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--c-text-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.field__hint {
+    font-size: 0.78rem;
+    color: var(--c-text-3);
+    font-weight: 400;
+}
+.field__hint:hover { color: var(--c-accent); }
+
+.field__input {
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    color: var(--c-text);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    padding: 11px 14px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+    width: 100%;
+}
+.field__input::placeholder { color: var(--c-text-3); }
+.field__input:focus {
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px rgba(124,106,247,0.15);
+}
+
+/* Checkbox */
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.checkbox input { display: none; }
+
+.checkbox__box {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--c-border);
+    background: var(--c-bg);
+    flex-shrink: 0;
+    transition: all var(--transition);
+    position: relative;
+}
+.checkbox input:checked + .checkbox__box {
+    background: var(--c-accent);
+    border-color: var(--c-accent);
+}
+.checkbox input:checked + .checkbox__box::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #fff;
+}
+
+.checkbox__label {
+    font-size: 0.82rem;
+    color: var(--c-text-2);
+}
+
+.login-panel__footer {
+    margin-top: 24px;
+    font-size: 0.82rem;
+    color: var(--c-text-3);
+    text-align: center;
+}
+
+/* Right aside */
+.login-aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-aside::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 70% 50% at 60% 40%, rgba(124,106,247,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(79,163,247,0.08) 0%, transparent 60%);
+}
+
+.login-aside__quote {
+    position: relative;
+    max-width: 420px;
+    font-style: normal;
+    border-left: 2px solid var(--c-accent);
+    padding-left: 28px;
+}
+
+.login-aside__quote p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--c-text);
+    font-style: italic;
+    margin-bottom: 16px;
+}
+
+.login-aside__quote cite {
+    font-size: 0.82rem;
+    color: var(--c-text-3);
+    font-style: normal;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .login-layout {
+        grid-template-columns: 1fr;
+    }
+    .login-aside { display: none; }
+    .login-panel {
+        border-right: none;
+        padding: 24px;
+    }
+}

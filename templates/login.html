@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in — MyApp{% endblock %}
+{% block body_class %}page-login{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="login-layout">
+
+    <div class="login-panel">
+        <a href="{{ url_for('index') }}" class="login-panel__back">← Back</a>
+
+        <div class="login-panel__inner">
+            <a href="{{ url_for('index') }}" class="login-panel__logo">MyApp</a>
+            <h1 class="login-panel__title">Welcome back.</h1>
+            <p class="login-panel__sub">Sign in to your account to continue.</p>
+
+            <form method="POST" action="{{ url_for('login') }}" class="login-form" novalidate>
+                {{ form.hidden_tag() if form else '' }}
+
+                <div class="field">
+                    <label class="field__label" for="email">Email</label>
+                    <input
+                        class="field__input"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        value="{{ request.form.get('email', '') }}"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label class="field__label" for="password">
+                        Password
+                        <a href="#" class="field__hint">Forgot?</a>
+                    </label>
+                    <input
+                        class="field__input"
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="••••••••"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <label class="checkbox">
+                    <input type="checkbox" name="remember">
+                    <span class="checkbox__box"></span>
+                    <span class="checkbox__label">Keep me signed in</span>
+                </label>
+
+                <button type="submit" class="btn btn--primary btn--full">Sign in →</button>
+            </form>
+
+            <p class="login-panel__footer">
+                Don't have an account? <a href="#">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="login-aside">
+        <blockquote class="login-aside__quote">
+            <p>"MyApp cut our team's overhead in half. We ship faster and stress less."</p>
+            <cite>— Jordan K., Engineering Lead</cite>
+        </blockquote>
+    </div>
+
+</div>
+{% endblock %}

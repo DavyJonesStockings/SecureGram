@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome — MyApp{% endblock %}
+{% block body_class %}page-home{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+<nav class="nav">
+    <a href="{{ url_for('index') }}" class="nav__logo">MyApp</a>
+    <div class="nav__links">
+        <a href="{{ url_for('login') }}" class="nav__link">Sign in</a>
+        <a href="{{ url_for('login') }}" class="btn btn--outline">Get started →</a>
+    </div>
+</nav>
+
+<main>
+    <section class="hero">
+        <div class="hero__tag">Now in public beta</div>
+        <h1 class="hero__headline">
+            The modern way<br>
+            <em>to get things done.</em>
+        </h1>
+        <p class="hero__sub">
+            MyApp brings your work, team, and tools together in one place —
+            so you can move faster and focus on what matters.
+        </p>
+        <div class="hero__actions">
+            <a href="{{ url_for('login') }}" class="btn btn--primary">Start for free</a>
+            <a href="#features" class="btn btn--ghost">See how it works ↓</a>
+        </div>
+        <div class="hero__visual">
+            <div class="hero__card hero__card--1">
+                <div class="card-dot card-dot--green"></div>
+                <span>All systems operational</span>
+            </div>
+            <div class="hero__card hero__card--2">
+                <div class="card-dot card-dot--blue"></div>
+                <span>12 tasks completed today</span>
+            </div>
+            <div class="hero__card hero__card--3">
+                <div class="card-dot card-dot--amber"></div>
+                <span>3 items need review</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="features__heading">Everything you need.</h2>
+        <div class="features__grid">
+            <div class="feature-card">
+                <div class="feature-card__icon">◈</div>
+                <h3>Unified Dashboard</h3>
+                <p>See everything at a glance. Your metrics, tasks, and activity in one clean view.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card__icon">⟳</div>
+                <h3>Real-time Updates</h3>
+                <p>Changes sync instantly. No refreshing, no waiting — always up to date.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card__icon">⌘</div>
+                <h3>Keyboard First</h3>
+                <p>Built for power users. Navigate and act without ever touching the mouse.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Ready to get started?</h2>
+        <p>Join thousands of teams already using MyApp.</p>
+        <a href="{{ url_for('login') }}" class="btn btn--primary btn--lg">Create your account</a>
+    </section>
+</main>
+
+<footer class="footer">
+    <span>© 2026 MyApp</span>
+    <div class="footer__links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+    </div>
+</footer>
+{% endblock %}
